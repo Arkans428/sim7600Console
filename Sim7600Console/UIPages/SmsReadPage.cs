@@ -10,10 +10,11 @@
 //     • R   : Reply to sender (opens SendSmsPage with "To" prefilled & focus on Body)
 // ============================================================================
 
+using Sim7600Console.SMS;
 using System;
 using System.Linq;
 
-namespace Sim7600Console
+namespace Sim7600Console.UIPages
 {
     public sealed class SmsReadPage : PageBase
     {
@@ -139,9 +140,9 @@ namespace Sim7600Console
         /// Simple fixed-width "wrap" of a string into chunks no longer than width.
         /// This is not word-wrapping; it's a safe way to avoid console auto-wrap.
         /// </summary>
-        private static System.Collections.Generic.List<string> Wrap(string text, int width)
+        private static List<string> Wrap(string text, int width)
         {
-            var result = new System.Collections.Generic.List<string>();
+            var result = new List<string>();
             if (string.IsNullOrEmpty(text)) { result.Add(""); return result; }
 
             int start = 0;

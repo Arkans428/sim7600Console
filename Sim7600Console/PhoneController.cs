@@ -41,6 +41,7 @@
 //   • SmsManager.SendAsync(), ListAsync(), ReadAsync(), DeleteAsync()
 // ============================================================================
 
+using Sim7600Console.SMS;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -89,7 +90,7 @@ namespace Sim7600Console
             // Construct submodules with shared StatusHub for consistent logging.
             _modem = new ModemControl(_session.Status, atPort);
             // NEW: pass sampleRate: 16000 (you may also bump baud here if you like)
-            _audio = new AudioBridge(_session.Status, audioPort, baud: 115200, sampleRate: 16000);
+            _audio = new AudioBridge(_session.Status, audioPort, baud: 460800, sampleRate: 16000);
 
             _sms = new SmsManager(_session.Status, _modem);
 
@@ -221,6 +222,8 @@ namespace Sim7600Console
             {
                 _callEndHandled = false;
                 _inCall = false;
+                _session.IsRinging = false;   // NEW
+                _session.InCall = true;       // NEW
             }
             Interlocked.Exchange(ref _routeOnceFlag, 0);
 
@@ -266,6 +269,8 @@ namespace Sim7600Console
             {
                 _inCall = true;
                 _callEndHandled = false;
+                _session.IsRinging = false;  // NEW
+                _session.InCall = true;      // NEW
             }
 
             // Safety net: if audio hasn't been routed/started after 1.2s, route it once.
@@ -317,6 +322,9 @@ namespace Sim7600Console
                 shouldDoRouteRestore = !_callEndHandled;   // only first teardown triggers CPCMREG restore
                 _callEndHandled = true;
                 _inCall = false;
+                _session.IsRinging = false;          // NEW
+                _session.InCall = false;             // NEW
+                _session.IncomingCallerId = null;    // NEW: clear “Incoming” field
             }
 
             // Always stop local audio pipeline so TX/RX threads die.
@@ -360,6 +368,9 @@ namespace Sim7600Console
                 _callEndHandled = true;
                 _inCall = false;
                 shouldDoRouteRestore = true;
+                _session.IsRinging = false;          // NEW
+                _session.InCall = false;             // NEW
+                _session.IncomingCallerId = null;    // NEW
             }
 
             _session.Status.Add("Call ended.");
@@ -458,8 +469,9 @@ namespace Sim7600Console
         {
             lock (_stateLock)
             {
-                _session.IncomingCallerId =
-                    string.IsNullOrWhiteSpace(caller) ? "Unknown" : caller;
+                _session.IncomingCallerId = string.IsNullOrWhiteSpace(caller) ? "Unknown" : caller;
+                _session.IsRinging = true;             // NEW: start blinking / show Answer/Reject
+                _session.InCall = false;               // ensure not marked in-call yet
                 _session.Status.Add($"Incoming call from: {_session.IncomingCallerId}");
             }
         }

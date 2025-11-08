@@ -26,7 +26,7 @@
 
 using System;
 
-namespace Sim7600Console
+namespace Sim7600Console.UIPages
 {
     /// <summary>
     /// A simple static "About" page that shows program information, credits,

@@ -116,6 +116,12 @@ namespace Sim7600Console
         /// </summary>
         protected readonly AppSession Session;
 
+        // NEW: public accessor so ConsoleUi can read session state for the ribbon
+        public AppSession AppSession => Session;
+
+        // NEW: whether the global status area (bottom log) should be hidden for this page.
+        public virtual bool HideStatusArea => false;
+
         /// <summary>
         /// Points to the next page in a manual navigation chain (optional).
         /// </summary>

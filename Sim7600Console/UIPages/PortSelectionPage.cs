@@ -47,7 +47,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Sim7600Console
+namespace Sim7600Console.UIPages
 {
     /// <summary>
     /// Port selection wizard that cleanly guides the user through selecting
@@ -136,7 +136,7 @@ namespace Sim7600Console
 
             // ------------------------- Step 3: Confirm -------------------------
             SafeWrite(0, y++, "Step 3/3 — Confirm:");
-            string confirm = (Session.AtComPort != null && Session.AudioComPort != null)
+            string confirm = Session.AtComPort != null && Session.AudioComPort != null
                 ? $"Press ENTER to continue  (AT={Session.AtComPort}, Audio={Session.AudioComPort})"
                 : $"Select both ports to continue…";
             SafeWrite(0, y++, confirm);
@@ -344,9 +344,9 @@ namespace Sim7600Console
 
             for (int i = first; i < lastExclusive; i++)
             {
-                bool isCursor = (i == _cursor);
+                bool isCursor = i == _cursor;
                 string mark = isCursor ? "▶" : " ";
-                string sel = (_ports[i] == selectedPort) ? " [Selected]" : "";
+                string sel = _ports[i] == selectedPort ? " [Selected]" : "";
                 string line = $"{mark} {_ports[i]}{sel}";
 
                 // Clamp line width to avoid accidental wrapping on narrow terminals.

@@ -20,9 +20,9 @@
 using System;
 using NAudio;
 using NAudio.Wave;
-using NAudio.CoreAudioApi; // for MMDeviceEnumerator (WASAPI)
+using NAudio.CoreAudioApi;
 
-namespace Sim7600Console
+namespace Sim7600Console.UIPages
 {
     public sealed class AudioDevicesPage : PageBase
     {
@@ -183,8 +183,8 @@ namespace Sim7600Console
             int y = startRow;
             for (int i = first; i < lastEx; i++)
             {
-                bool isCursor = (i == currentCursor);
-                bool isSelected = (selectedId.HasValue && selectedId.Value == i);
+                bool isCursor = i == currentCursor;
+                bool isSelected = selectedId.HasValue && selectedId.Value == i;
 
                 string marker = isCursor ? "▶" : " ";
                 string sel = isSelected ? " [Selected]" : "";

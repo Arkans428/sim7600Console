@@ -30,7 +30,7 @@
 
 using System.Collections.Generic;
 
-namespace Sim7600Console
+namespace Sim7600Console.SMS
 {
     /// <summary>
     /// Maintains an in-memory dictionary of SMS messages keyed by their

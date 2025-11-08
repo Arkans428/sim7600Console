@@ -104,6 +104,8 @@ namespace Sim7600Console
         /// </summary>
         private const int MinRedrawMs = 80;
 
+        private long _blinkEpoch = Environment.TickCount;
+
         // ------------------------------------------------------------------------------
         // Construction
         // ------------------------------------------------------------------------------
@@ -190,6 +192,34 @@ namespace Sim7600Console
                         if (nav == PageNav.Redraw) { Redraw(force: true); continue; }
                         // Other PageNav actions can be added here (e.g., PageNav.PushSubPage)
                     }
+                    else
+                    {
+                        // --- NEW: global call keys ---
+                        var session = TryGetSession();
+                        var phone = ControllerLocator.Phone;
+
+                        if (session != null && phone != null)
+                        {
+                            if (session.IsRinging && keyInfo.Key == ConsoleKey.A)
+                            {
+                                UiTaskRunner.Run(_status, "Answering…", async () => await phone.AnswerAsync());
+                                Redraw(force: true);
+                                continue;
+                            }
+                            if (session.IsRinging && keyInfo.Key == ConsoleKey.R)
+                            {
+                                UiTaskRunner.Run(_status, "Rejecting…", async () => await phone.HangUpAsync());
+                                Redraw(force: true);
+                                continue;
+                            }
+                            if (session.InCall && keyInfo.Key == ConsoleKey.H)
+                            {
+                                UiTaskRunner.Run(_status, "Hanging up…", async () => await phone.HangUpAsync());
+                                Redraw(force: true);
+                                continue;
+                            }
+                        }
+                    }
                 }
 
                 // 2) Determine if we need a redraw due to new status lines or a page that
@@ -257,12 +287,22 @@ namespace Sim7600Console
                         "No page available. Press ESC to exit.");
                 }
 
-                // Visual separator between content and status areas.
-                var sep = new string('─', width);
-                WriteAt(0, contentHeight, sep);
+                // --- NEW: global “Modem / Incoming / SMS” ribbon at row 1 ---
+                try { DrawGlobalHeader(width); } catch { /* non-fatal */ }
 
-                // Draw the scrolling status area (tail of recent lines).
-                DrawStatusArea(width, statusHeight);
+                // Draw the bottom separator and/or Status Area only if the current page allows it.
+                if (!(Current is PageBase pb && pb.HideStatusArea))
+                {
+                    var sep = new string('─', width);
+                    WriteAt(0, contentHeight, sep);
+                    DrawStatusArea(width, statusHeight);
+                }
+                else
+                {
+                    // When hiding, clear the area below contentHeight to avoid ghost lines.
+                    for (int y = contentHeight; y < height; y++)
+                        WriteAt(0, y, new string(' ', width));
+                }
 
                 // Record the version we rendered so we can detect new status later.
                 _lastStatusVersion = _status.Version;
@@ -291,6 +331,83 @@ namespace Sim7600Console
                 if (y >= Console.WindowHeight) break; // Stay in bounds if console was resized.
             }
         }
+
+        private void DrawGlobalHeader(int width)
+        {
+            var session = TryGetSession();
+            string modem = (session?.ModemReady ?? false) ? "Ready" : "Not Ready";
+            string incoming = string.IsNullOrWhiteSpace(session?.IncomingCallerId) ? "—" : session!.IncomingCallerId!;
+            string sms = (session?.NewSmsIndicator ?? false) ? "NEW" : "—";
+
+            // Compose the left+middle+right segments
+            string left = $" Modem: {modem} ";
+            string mid = $" Incoming: {incoming} ";
+            string right = $" SMS: {sms} ";
+
+            // Fit them on one line, trimming middle if needed
+            string line = left + mid + right;
+            if (line.Length > width)
+            {
+                // Prefer trimming the middle segment to keep left/right visible
+                int spare = width - (left.Length + right.Length);
+                if (spare < 8) spare = 8;
+                if (mid.Length > spare) mid = mid[..spare];
+                line = left + mid + right;
+                if (line.Length > width) line = line[..width];
+            }
+
+            // Write left part (normal)
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.BackgroundColor = ConsoleColor.Black;
+            WriteAt(0, 1, new string(' ', width)); // clear row 1
+            WriteAt(0, 1, left);
+
+            // Write middle part with optional blinking background if ringing
+            int midX = left.Length;
+            bool blinkOn = (((Environment.TickCount - _blinkEpoch) / 450) % 2) == 0;
+            if ((session?.IsRinging ?? false) && blinkOn)
+            {
+                Console.BackgroundColor = ConsoleColor.DarkYellow; // blink bg
+                Console.ForegroundColor = ConsoleColor.Black;
+            }
+            else
+            {
+                Console.BackgroundColor = ConsoleColor.Black;
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+            WriteAt(midX, 1, mid);
+
+            // Write right part (normal)
+            int rightX = midX + mid.Length;
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.ForegroundColor = ConsoleColor.Gray;
+            WriteAt(rightX, 1, right);
+
+            Console.ResetColor();
+
+            // Also show global softkeys on row 2 (without stealing page real estate)
+            DrawGlobalSoftkeys(width, session);
+        }
+
+        private void DrawGlobalSoftkeys(int width, AppSession? session)
+        {
+            if (session == null) return;
+
+            string keys =
+                session.IsRinging ? " [A] Answer   [R] Reject " :
+                session.InCall ? " [H] Hang Up " :
+                                   string.Empty;
+
+            if (string.IsNullOrEmpty(keys)) return;
+
+            // Draw on row 2, aligned to right side so it rarely collides with page hints
+            int x = Math.Max(0, width - keys.Length - 1);
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.BackgroundColor = ConsoleColor.Black;
+            WriteAt(x, 2, keys);
+            Console.ResetColor();
+        }
+
 
         // ------------------------------------------------------------------------------
         // Console write helpers (defensive against small/fast-resizing windows)
@@ -344,5 +461,10 @@ namespace Sim7600Console
         /// </summary>
         private static string PadRight(string s, int totalWidth, char c)
             => s.Length >= totalWidth ? s : s + new string(c, totalWidth - s.Length);
+
+        // Helper to get the AppSession from the active page without changing signatures
+        private AppSession? TryGetSession()
+            => (Current as PageBase)?.AppSession;
+
     }
 }

@@ -43,7 +43,7 @@
 
 using System;
 
-namespace Sim7600Console
+namespace Sim7600Console.UIPages
 {
     /// <summary>
     /// Represents the top-level navigation menu for the SIM7600 console app.
@@ -83,20 +83,12 @@ namespace Sim7600Console
             SafeWrite(0, row++, "Use number keys to navigate. ESC exits.");
             SafeWrite(0, row++, "");
 
-            // Gather live system state indicators from AppSession
-            var readiness = Session.ModemReady ? "Ready" : "Not Ready";
-            var caller = string.IsNullOrEmpty(Session.IncomingCallerId) ? "—" : Session.IncomingCallerId!;
-            var sms = Session.NewSmsIndicator ? "NEW" : "—";
-
-            // Show summary line: modem, incoming caller ID, and SMS state
-            SafeWrite(0, row++, $"Modem: {readiness}   Incoming: {caller}   SMS: {sms}");
-            SafeWrite(0, row++, "");
-
             // Render static numbered menu choices (single page layout)
             SafeWrite(0, row++, "  1) Dialing Menu");
             SafeWrite(0, row++, "  2) SMS Menu");
             SafeWrite(0, row++, "  3) Choose COM Ports (Settings)");
             SafeWrite(0, row++, "  4) Choose Audio Devices (Mic/Speaker)");
+            SafeWrite(0, row++, "  5) View Live Log");
             SafeWrite(0, row++, "  9) About");
             SafeWrite(0, row++, "  0) Exit");
         }
@@ -141,6 +133,11 @@ namespace Sim7600Console
 
                 case ConsoleKey.D4:
                     Ui.Push(new AudioDevicesPage(Ui, Session) { Previous = this });
+                    nav = PageNav.Redraw;
+                    return true;
+
+                case ConsoleKey.D5:
+                    Ui.Push(new LogViewerPage(Ui, Session) { Previous = this });
                     nav = PageNav.Redraw;
                     return true;
 

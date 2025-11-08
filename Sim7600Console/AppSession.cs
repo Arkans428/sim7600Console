@@ -26,6 +26,7 @@
 //     - AppSession:          store current app-wide state
 // ============================================================================
 
+using Sim7600Console.SMS;
 using System;
 using System.Collections.Generic;
 
@@ -91,6 +92,9 @@ namespace Sim7600Console
         /// an incoming call is detected. “Unknown” if no CLIP information was given.
         /// </summary>
         public string? IncomingCallerId { get; set; }
+
+        public bool IsRinging { get; set; } = false;  // true while modem presents RING
+        public bool InCall { get; set; } = false;     // true while call is active
 
         // ------------------ SMS Data Cache ------------------------------
 

@@ -112,7 +112,7 @@ namespace Sim7600Console
         /// <param name="audioPortName">The COM port name for serial audio (e.g., "COM6").</param>
         /// <param name="baud">Baud rate (defaults to 115200).</param>
         /// <param name="sampleRate">Set audio sampling to 16K</param>
-        public AudioBridge(StatusHub status, string audioPortName, int baud = 115200, int sampleRate = 16000)
+        public AudioBridge(StatusHub status, string audioPortName, int baud = 460800, int sampleRate = 16000)
         {
             _status = status ?? throw new ArgumentNullException(nameof(status));
             _audioPortName = audioPortName ?? throw new ArgumentNullException(nameof(audioPortName));

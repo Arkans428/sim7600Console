@@ -15,7 +15,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Sim7600Console
+namespace Sim7600Console.SMS
 {
     public sealed class SmsManager
     {
@@ -68,7 +68,7 @@ namespace Sim7600Console
                     string sender = m.Groups[2].Value;
                     string timestamp = m.Groups[3].Value;
 
-                    string body = (i + 1 < lines.Length) ? lines[i + 1] : string.Empty;
+                    string body = i + 1 < lines.Length ? lines[i + 1] : string.Empty;
                     string preview = body ?? "";
                     if (preview.Length > 60) preview = preview[..60] + "…";
 

@@ -41,7 +41,7 @@
 using System;
 using System.Text;
 
-namespace Sim7600Console
+namespace Sim7600Console.UIPages
 {
     /// <summary>
     /// Console page that provides an interactive numeric dial pad for making,
@@ -114,8 +114,6 @@ namespace Sim7600Console
                 SafeWrite(0, row++, "Type digits (0-9, +, *, #). Press ENTER to start the call.");
 
             SafeWrite(0, row++, "");
-            SafeWrite(0, row++,
-                $"Modem: {(Session.ModemReady ? "Ready" : "Not Ready")}  (Ports: AT={Session.AtComPort ?? "?"}, Audio={Session.AudioComPort ?? "?"})");
         }
 
         // --------------------------------------------------------------------

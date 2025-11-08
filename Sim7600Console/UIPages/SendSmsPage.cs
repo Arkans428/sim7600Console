@@ -15,7 +15,7 @@ using System;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sim7600Console
+namespace Sim7600Console.UIPages
 {
     public sealed class SendSmsPage : PageBase
     {
@@ -61,9 +61,6 @@ namespace Sim7600Console
 
             SafeWrite(0, row++, (_editingTo ? "> " : "  ") + $"To:   {_to}");
             SafeWrite(0, row++, (_editingTo ? "  " : "> ") + $"Body: {_body}");
-
-            SafeWrite(0, row++, "");
-            SafeWrite(0, row++, $"Modem: {(Session.ModemReady ? "Ready" : "Not Ready")}");
         }
 
         /// <summary>

@@ -4,7 +4,7 @@
 // Description:
 //   Storage selector for SIM7600 SMS operations. "SM" = SIM card, "ME" = modem.
 // ============================================================================
-namespace Sim7600Console
+namespace Sim7600Console.SMS
 {
     public enum SmsStorage
     {

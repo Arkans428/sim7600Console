@@ -26,7 +26,7 @@
 //   3. When user opens a message, SmsMessage provides full content for viewing.
 // ============================================================================
 
-namespace Sim7600Console
+namespace Sim7600Console.SMS
 {
     /// <summary>
     /// Represents a complete SMS message stored or retrieved from the modem.

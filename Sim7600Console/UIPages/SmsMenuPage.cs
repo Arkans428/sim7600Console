@@ -15,7 +15,7 @@
 
 using System;
 
-namespace Sim7600Console
+namespace Sim7600Console.UIPages
 {
     public sealed class SmsMenuPage : PageBase
     {
@@ -50,13 +50,13 @@ namespace Sim7600Console
             // Render the list within available space (clip to page height).
             SafeWrite(0, row++, "Received Messages:");
             int maxVisible = Math.Max(1, height - row - 1); // leave a little breathing room
-            int start = Math.Max(0, Math.Min(_cursor - (maxVisible / 2), Math.Max(0, Session.SmsList.Count - maxVisible)));
+            int start = Math.Max(0, Math.Min(_cursor - maxVisible / 2, Math.Max(0, Session.SmsList.Count - maxVisible)));
             int end = Math.Min(Session.SmsList.Count, start + maxVisible);
 
             for (int i = start; i < end; i++)
             {
                 var item = Session.SmsList[i];
-                string marker = (i == _cursor) ? "▶" : " ";
+                string marker = i == _cursor ? "▶" : " ";
                 string line = $"{marker} [{item.Index}@{item.Storage}] {item.Timestamp}  From: {item.Sender}  {item.Preview}";
 
                 if (line.Length > width) line = line[..width]; // prevent wrap
