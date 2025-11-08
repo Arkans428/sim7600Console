@@ -262,9 +262,7 @@ namespace Sim7600Console.UI
                 // pages can rely on at least 80x24 for baseline rendering.
                 var width = Math.Max(80, Console.WindowWidth);
                 var height = Math.Max(24, Console.WindowHeight);
-                var statusHeight = (int)Math.Max(6, Math.Round(height * StatusAreaRatio));
-                var contentHeight = height - statusHeight;
-
+                
                 // Reset cursor and clear the screen to avoid artifacts from prior frames.
                 Console.SetCursorPosition(0, 0);
                 Console.ResetColor();
@@ -272,6 +270,11 @@ namespace Sim7600Console.UI
 
                 // Draw the current page (or a fallback message if none exists).
                 var page = Current;
+                bool hideStatus = page?.HideStatusArea ?? false;
+                // If hidden, give content the full height; otherwise keep bottom third.
+                int statusHeight = hideStatus ? 0 : (int)Math.Max(6, Math.Round(height * StatusAreaRatio));
+                int contentHeight = Math.Max(1, height - statusHeight);
+
                 if (page != null)
                 {
                     try { page.Draw(width, contentHeight); }

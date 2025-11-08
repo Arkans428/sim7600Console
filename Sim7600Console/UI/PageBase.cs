@@ -89,6 +89,13 @@ namespace Sim7600Console.UI
         bool WantsPassiveRefresh { get; }
 
         /// <summary>
+        /// If true, the global Status Area at the bottom is hidden and the page
+        /// receives the full console height for its content.
+        /// Default: false.
+        /// </summary>
+        public virtual bool HideStatusArea => false;
+
+        /// <summary>
         /// Forward navigation reference — may be used for chain navigation.
         /// </summary>
         IPage? Next { get; set; }
