@@ -11,11 +11,12 @@
 //     • When pre-filled, focus starts on Body so the user can type immediately.
 // ============================================================================
 
+using Sim7600Console.UI;
 using System;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sim7600Console.UIPages
+namespace Sim7600Console.UI.Pages
 {
     public sealed class SendSmsPage : PageBase
     {

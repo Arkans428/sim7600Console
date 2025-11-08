@@ -48,7 +48,8 @@
 
 using System;
 using System.Runtime.Versioning;
-using Sim7600Console.UIPages;
+using Sim7600Console.UI.Pages;
+using Sim7600Console.UI;
 
 namespace Sim7600Console
 {

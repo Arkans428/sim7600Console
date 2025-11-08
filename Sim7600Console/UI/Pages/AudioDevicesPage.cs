@@ -21,8 +21,9 @@ using System;
 using NAudio;
 using NAudio.Wave;
 using NAudio.CoreAudioApi;
+using Sim7600Console.UI;
 
-namespace Sim7600Console.UIPages
+namespace Sim7600Console.UI.Pages
 {
     public sealed class AudioDevicesPage : PageBase
     {

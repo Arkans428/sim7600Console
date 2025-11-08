@@ -40,7 +40,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace Sim7600Console
+namespace Sim7600Console.UI
 {
     /// <summary>
     /// Provides a simple way to execute asynchronous tasks from UI pages while

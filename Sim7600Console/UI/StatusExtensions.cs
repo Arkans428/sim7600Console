@@ -31,7 +31,7 @@
 //     AudioBridge, ModemControl).
 // ============================================================================
 
-namespace Sim7600Console
+namespace Sim7600Console.UI
 {
     /// <summary>
     /// Extension methods that simplify and standardize logging

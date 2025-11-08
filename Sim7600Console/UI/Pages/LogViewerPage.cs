@@ -22,11 +22,12 @@
 //   - When _scrollOffset == 0 we’re “following” the tail (live).
 // ============================================================================
 
+using Sim7600Console.UI;
 using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace Sim7600Console.UIPages
+namespace Sim7600Console.UI.Pages
 {
     public sealed class LogViewerPage : PageBase
     {

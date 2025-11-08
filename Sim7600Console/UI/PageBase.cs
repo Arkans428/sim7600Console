@@ -48,7 +48,7 @@
 
 using System;
 
-namespace Sim7600Console
+namespace Sim7600Console.UI
 {
     /// <summary>
     /// Defines common navigation actions that a page may request from the UI loop.

@@ -59,6 +59,7 @@ using System.Collections.Concurrent;
 using System.IO.Ports;
 using System.Threading;
 using NAudio.Wave;
+using Sim7600Console.UI;
 
 namespace Sim7600Console
 {

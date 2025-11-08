@@ -41,9 +41,11 @@
 //   • AboutPage    — Static program info and credits.
 // ============================================================================
 
+using Sim7600Console.UI.Pages;
+using Sim7600Console.UI;
 using System;
 
-namespace Sim7600Console.UIPages
+namespace Sim7600Console.UI.Pages
 {
     /// <summary>
     /// Represents the top-level navigation menu for the SIM7600 console app.

@@ -46,6 +46,7 @@
 //     If you wire events differently, you can remove that hook safely.
 // ============================================================================
 
+using Sim7600Console.UI;
 using System;
 using System.IO.Ports;
 using System.Text;

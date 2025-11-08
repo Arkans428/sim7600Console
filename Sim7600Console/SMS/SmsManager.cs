@@ -9,6 +9,7 @@
 //   - SendAsync(number, text) unchanged (text mode)
 // ============================================================================
 
+using Sim7600Console.UI;
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;

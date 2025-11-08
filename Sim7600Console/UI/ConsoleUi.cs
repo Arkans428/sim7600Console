@@ -47,7 +47,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 
-namespace Sim7600Console
+namespace Sim7600Console.UI
 {
     /// <summary>
     /// Console layout & page host that manages a navigation stack and a persistent
@@ -335,9 +335,9 @@ namespace Sim7600Console
         private void DrawGlobalHeader(int width)
         {
             var session = TryGetSession();
-            string modem = (session?.ModemReady ?? false) ? "Ready" : "Not Ready";
+            string modem = session?.ModemReady ?? false ? "Ready" : "Not Ready";
             string incoming = string.IsNullOrWhiteSpace(session?.IncomingCallerId) ? "—" : session!.IncomingCallerId!;
-            string sms = (session?.NewSmsIndicator ?? false) ? "NEW" : "—";
+            string sms = session?.NewSmsIndicator ?? false ? "NEW" : "—";
 
             // Compose the left+middle+right segments
             string left = $" Modem: {modem} ";
@@ -364,7 +364,7 @@ namespace Sim7600Console
 
             // Write middle part with optional blinking background if ringing
             int midX = left.Length;
-            bool blinkOn = (((Environment.TickCount - _blinkEpoch) / 450) % 2) == 0;
+            bool blinkOn = (Environment.TickCount - _blinkEpoch) / 450 % 2 == 0;
             if ((session?.IsRinging ?? false) && blinkOn)
             {
                 Console.BackgroundColor = ConsoleColor.DarkYellow; // blink bg

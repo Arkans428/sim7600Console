@@ -30,7 +30,7 @@ using Sim7600Console.SMS;
 using System;
 using System.Collections.Generic;
 
-namespace Sim7600Console
+namespace Sim7600Console.UI
 {
     /// <summary>
     /// Represents the shared runtime context for the entire application.

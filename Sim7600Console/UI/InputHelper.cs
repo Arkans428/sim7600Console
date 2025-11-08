@@ -38,7 +38,7 @@
 using System;
 using System.Text;
 
-namespace Sim7600Console
+namespace Sim7600Console.UI
 {
     /// <summary>
     /// Provides static helper methods for handling editable text buffers in

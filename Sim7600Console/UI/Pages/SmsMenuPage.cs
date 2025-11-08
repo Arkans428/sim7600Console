@@ -13,9 +13,11 @@
 //     - ENTER : Open selected message in read view
 // ============================================================================
 
+using Sim7600Console.UI.Pages;
+using Sim7600Console.UI;
 using System;
 
-namespace Sim7600Console.UIPages
+namespace Sim7600Console.UI.Pages
 {
     public sealed class SmsMenuPage : PageBase
     {

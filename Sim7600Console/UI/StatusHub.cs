@@ -53,7 +53,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace Sim7600Console
+namespace Sim7600Console.UI
 {
     /// <summary>
     /// Provides a thread-safe rolling log that stores and optionally persists

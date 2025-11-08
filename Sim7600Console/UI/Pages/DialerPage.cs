@@ -38,10 +38,11 @@
 //   • UiTaskRunner: Runs background async tasks with visible progress messages.
 // ============================================================================
 
+using Sim7600Console.UI;
 using System;
 using System.Text;
 
-namespace Sim7600Console.UIPages
+namespace Sim7600Console.UI.Pages
 {
     /// <summary>
     /// Console page that provides an interactive numeric dial pad for making,

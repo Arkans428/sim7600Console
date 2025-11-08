@@ -43,7 +43,7 @@
 
 using System;
 
-namespace Sim7600Console
+namespace Sim7600Console.UI
 {
     /// <summary>
     /// Represents a simple modal confirmation dialog that asks the user

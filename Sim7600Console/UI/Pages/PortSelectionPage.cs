@@ -41,13 +41,14 @@
 //   • We log all important actions to StatusHub for operator traceability.
 // ============================================================================
 
+using Sim7600Console.UI;
 using System;
 using System.IO.Ports;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Sim7600Console.UIPages
+namespace Sim7600Console.UI.Pages
 {
     /// <summary>
     /// Port selection wizard that cleanly guides the user through selecting

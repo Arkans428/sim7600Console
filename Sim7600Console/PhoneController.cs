@@ -42,6 +42,7 @@
 // ============================================================================
 
 using Sim7600Console.SMS;
+using Sim7600Console.UI;
 using System;
 using System.Threading;
 using System.Threading.Tasks;

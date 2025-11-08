@@ -11,10 +11,11 @@
 // ============================================================================
 
 using Sim7600Console.SMS;
+using Sim7600Console.UI;
 using System;
 using System.Linq;
 
-namespace Sim7600Console.UIPages
+namespace Sim7600Console.UI.Pages
 {
     public sealed class SmsReadPage : PageBase
     {
