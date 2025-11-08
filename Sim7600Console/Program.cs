@@ -46,7 +46,6 @@
 //     - NAudio (Windows-specific wave APIs)
 // ============================================================================
 
-using System;
 using System.Runtime.Versioning;
 using Sim7600Console.UI.Pages;
 using Sim7600Console.UI;

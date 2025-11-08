@@ -49,10 +49,6 @@
 //     PhoneController, PortSelectionPage, etc.).
 // ============================================================================
 
-using System;
-using System.Collections.Generic;
-using System.IO;
-
 namespace Sim7600Console.UI
 {
     /// <summary>

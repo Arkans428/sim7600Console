@@ -42,10 +42,7 @@
 //     be observed on the next Run() loop iteration.
 // ============================================================================
 
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Threading;
 
 namespace Sim7600Console.UI
 {

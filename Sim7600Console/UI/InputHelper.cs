@@ -35,7 +35,6 @@
 //   • ConsoleKeyInfo — for raw keyboard event data.
 // ============================================================================
 
-using System;
 using System.Text;
 
 namespace Sim7600Console.UI

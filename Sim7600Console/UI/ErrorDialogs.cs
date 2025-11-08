@@ -41,8 +41,6 @@
 //   • PageBase:   For drawing abstraction and SafeWrite boundary protection.
 // ============================================================================
 
-using System;
-
 namespace Sim7600Console.UI
 {
     /// <summary>

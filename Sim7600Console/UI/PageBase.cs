@@ -46,8 +46,6 @@
 //   • Provide more advanced layout helpers (table rendering, text wrapping).
 // ============================================================================
 
-using System;
-
 namespace Sim7600Console.UI
 {
     /// <summary>

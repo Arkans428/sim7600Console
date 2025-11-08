@@ -15,8 +15,6 @@
 //   a well-known key ("sim7600_voice_cb").
 // ============================================================================
 
-using System;
-
 namespace Sim7600Console
 {
     public static class ControllerLocator

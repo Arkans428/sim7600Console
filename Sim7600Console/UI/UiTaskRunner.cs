@@ -37,9 +37,6 @@
 //     (e.g., responding to keypresses in page classes).
 // ============================================================================
 
-using System;
-using System.Threading.Tasks;
-
 namespace Sim7600Console.UI
 {
     /// <summary>

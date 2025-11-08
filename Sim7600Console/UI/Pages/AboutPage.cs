@@ -24,9 +24,6 @@
 //   • InstanceInfo: Provides program metadata such as InstanceId and Banner.
 // ============================================================================
 
-using Sim7600Console.UI;
-using System;
-
 namespace Sim7600Console.UI.Pages
 {
     /// <summary>

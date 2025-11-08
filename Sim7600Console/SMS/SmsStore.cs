@@ -28,8 +28,6 @@
 //   - Delete operations trigger Remove(), keeping cache synchronized.
 // ============================================================================
 
-using System.Collections.Generic;
-
 namespace Sim7600Console.SMS
 {
     /// <summary>

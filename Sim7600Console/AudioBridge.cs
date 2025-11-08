@@ -54,10 +54,8 @@
 //     reduces jitter compared to callback-based APIs in console apps.
 // ============================================================================
 
-using System;
 using System.Collections.Concurrent;
 using System.IO.Ports;
-using System.Threading;
 using NAudio.Wave;
 using Sim7600Console.UI;
 

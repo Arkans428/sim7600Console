@@ -47,11 +47,8 @@
 // ============================================================================
 
 using Sim7600Console.UI;
-using System;
 using System.IO.Ports;
 using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Sim7600Console
 {

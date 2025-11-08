@@ -41,10 +41,6 @@
 //   • AboutPage    — Static program info and credits.
 // ============================================================================
 
-using Sim7600Console.UI.Pages;
-using Sim7600Console.UI;
-using System;
-
 namespace Sim7600Console.UI.Pages
 {
     /// <summary>
