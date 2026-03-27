@@ -22,7 +22,7 @@ All AI-generated code was:
 * Tested against real hardware (SIMCOM modules)
 * Modified where necessary to ensure correctness and reliability
 
-Final implementation decisions, debugging, and system design were performed manually.
+Final implementation decisions, debugging, and system design was performed myself.
 
 ### Notes
 
